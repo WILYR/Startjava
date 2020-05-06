@@ -1,5 +1,7 @@
 package com.startjava.lesson_2.Calculator;
 
+import java.lang.Math;
+
 public class Calculator {
     private String str;
     private char operation = '0';
