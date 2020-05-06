@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Game {
-	private int endRange = 10;
+	private int endRange = 100;
 	private int rand = (int)(Math.random() * endRange) + 1;
 	private Scanner in = new Scanner(System.in);
 	private Player player1;
