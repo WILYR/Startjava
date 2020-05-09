@@ -17,39 +17,59 @@ public class Game {
         this.player2 = player2;
     }
 
-    public void setNum(Player player) {
-        player.setNumber(in.nextInt());
-        player.setEnteredNumbers(player.getNumber(), i);
+    public void enterNum(Player player) {
+        player.setEnteredNumber(in.nextInt(), i);
     }
 
-    public boolean checkNum(Player player) {
-        boolean b = false;
-        if (player.getNumber() < rand) {
+    public boolean compareNums(Player player) {
+        boolean isCompareTrue = false;
+        if (player.getEnteredNumber(player.getEnteredNumbers(), i) < rand) {
             System.out.print("\nУ первого игрока число меньше, чем у компьютера");
-        } else if (player.getNumber() > rand) {
+        } else if (player.getEnteredNumber(player.getEnteredNumbers(), i) > rand) {
             System.out.print("\nУ первого игрока число больше, чем у компьютера");
-        } else if (player.getNumber() == rand) {
+        } else if (player.getEnteredNumber(player.getEnteredNumbers(), i) == rand) {
             System.out.print("\nВыиграл " + player.getName() + " с " + (i + 1) + "-ой попытки" + ", компьютер загадал число " + rand);
             i++;
-            b = true;
+            isCompareTrue = true;
         }
-        return b;
+        return isCompareTrue;
+    }
+
+    public void massiveOut(int[] mass) {
+        for (int value : mass) {
+            System.out.print(value + " ");
+        }
+        System.out.print("\n");
+    }
+
+    public void playerInfo() {
+        int[] copyNumMass1 = Arrays.copyOf(player1.getEnteredNumbers(), i);
+        int[] copyNumMass2 = Arrays.copyOf(player2.getEnteredNumbers(), i);
+        System.out.println("\nЧисла первого игрока: ");
+        massiveOut(copyNumMass1);
+        System.out.println("\nЧисла второго игрока: ");
+        massiveOut(copyNumMass2);
+        Arrays.fill(copyNumMass1, 0, i, 0);
+        Arrays.fill(copyNumMass2, 0, i, 0);
+        System.out.println("\nОбнуленные массивы:");
+        massiveOut(copyNumMass1);
+        massiveOut(copyNumMass2);
     }
 
     public void startGame() {
         System.out.println("\nУ каждого игрока 10 попыток!");
         while (i != 10) {
             System.out.print("\nПервый игрок вводит число для игры: ");
-            setNum(player1);
-            if (checkNum(player1)) {
+            enterNum(player1);
+            if (compareNums(player1)) {
                 break;
             }
             if (i == 9) {
                 System.out.println("\nУ " + player1.getName() + " закончились попытки");
             }
             System.out.print("\nВторой игрок вводит число для игры: ");
-            setNum(player2);
-            if (checkNum(player2)) {
+            enterNum(player2);
+            if (compareNums(player2)) {
                 break;
             }
             if (i == 9) {
@@ -57,17 +77,6 @@ public class Game {
             }
             i++;
         }
-    }
-
-    public void playerInfo() {
-        int[] copyNumMass1 = Arrays.copyOf(player1.getEnteredNumbers(), i);
-        int[] copyNumMass2 = Arrays.copyOf(player2.getEnteredNumbers(), i);
-        System.out.println("\nЧисла первого игрока: " + Arrays.toString(copyNumMass1));
-        System.out.println("\nЧисла второго игрока: " + Arrays.toString(copyNumMass2));
-        Arrays.fill(copyNumMass1, 0, i, 0);
-        Arrays.fill(copyNumMass2, 0, i, 0);
-        System.out.println("\nОбнуленные массивы:");
-        System.out.println("\n" + Arrays.toString(copyNumMass1));
-        System.out.println("\n" + Arrays.toString(copyNumMass2));
+        playerInfo();
     }
 }

@@ -8,19 +8,15 @@ public class GameTest {
         String answer;
         do {
             System.out.print("\nВведите имя первого игрока: ");
-            String name1 = in.next();
-            Player player1 = new Player(name1);
+            Player player1 = new Player(in.next());
             System.out.print("\nВведите имя второго игрока: ");
-            String name2 = in.next();
-            Player player2 = new Player(name2);
+            Player player2 = new Player(in.next());
             Game oneGame = new Game(player1, player2);
             oneGame.startGame();
-            oneGame.playerInfo();
             do {
                 System.out.print("\nХотите продолжить?(yes/no): ");
                 answer = in.next();
             } while (!answer.equals("yes") && !answer.equals("no"));
         } while (!answer.equals("no"));
-
     }
 }
