@@ -10,73 +10,77 @@ public class Game {
     private Scanner in = new Scanner(System.in);
     private Player player1;
     private Player player2;
-    private int i = 0;
+    private int attempt = 0;
 
     public Game(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
     }
 
+    public void startGame() {
+        System.out.println("\nУ каждого игрока 10 попыток!");
+        while (attempt != 10) {
+            enterNum(player1);
+            if (compareNums(player1)) {
+                break;
+            }
+            if (attempt == 9) {
+                System.out.println("\nУ " + player1.getName() + " закончились попытки");
+            }
+            enterNum(player2);
+            if (compareNums(player2)) {
+                break;
+            }
+            if (attempt == 9) {
+                System.out.println("\nУ " + player2.getName() + " закончились попытки");
+            }
+            attempt++;
+        }
+        int[] copyNumArray1 = Arrays.copyOf(player1.getEnteredNumbers(), attempt);
+        int[] copyNumArray2 = Arrays.copyOf(player2.getEnteredNumbers(), attempt);
+        showEnteredNums(copyNumArray1, player1);
+        ;
+        showEnteredNums(copyNumArray2, player2);
+        setFillNumbers(copyNumArray1, player1);
+        setFillNumbers(copyNumArray2, player2);
+        System.out.println("\nОбнуленные массивы:");
+        showEnteredNums(player1.getEnteredNumbers(), player1);
+        showEnteredNums(player2.getEnteredNumbers(), player2);
+    }
+
     public void enterNum(Player player) {
-        player.setEnteredNumber(in.nextInt(), i);
+        System.out.print("\n" + player.getName() + " вводит число для игры: ");
+        player.setEnteredNumber(in.nextInt(), attempt);
     }
 
     public boolean compareNums(Player player) {
         boolean isCompareTrue = false;
-        if (player.getEnteredNumber(player.getEnteredNumbers(), i) < rand) {
-            System.out.print("\nУ первого игрока число меньше, чем у компьютера");
-        } else if (player.getEnteredNumber(player.getEnteredNumbers(), i) > rand) {
-            System.out.print("\nУ первого игрока число больше, чем у компьютера");
-        } else if (player.getEnteredNumber(player.getEnteredNumbers(), i) == rand) {
-            System.out.print("\nВыиграл " + player.getName() + " с " + (i + 1) + "-ой попытки" + ", компьютер загадал число " + rand);
-            i++;
+        if (player.getEnteredNumbers()[attempt] < rand) {
+            System.out.print("\nУ " + player.getName() + " число меньше, чем у компьютера");
+        } else if (player.getEnteredNumbers()[attempt] > rand) {
+            System.out.print("\nУ " + player.getName() + " число больше, чем у компьютера");
+        } else if (player.getEnteredNumbers()[attempt] == rand) {
+            System.out.print("\nВыиграл " + player.getName() + " с " + (attempt + 1) + "-ой попытки" + ", компьютер загадал число " + rand);
+            attempt++;
             isCompareTrue = true;
         }
         return isCompareTrue;
     }
 
-    public void massiveOut(int[] mass) {
-        for (int value : mass) {
-            System.out.print(value + " ");
+    public void showEnteredNums(int[] nums, Player player) {
+        System.out.println("\nЧисла игрока " + player.getName());
+        for (int num : nums) {
+            System.out.print(num + " ");
         }
-        System.out.print("\n");
+        System.out.println("");
     }
 
-    public void playerInfo() {
-        int[] copyNumMass1 = Arrays.copyOf(player1.getEnteredNumbers(), i);
-        int[] copyNumMass2 = Arrays.copyOf(player2.getEnteredNumbers(), i);
-        System.out.println("\nЧисла первого игрока: ");
-        massiveOut(copyNumMass1);
-        System.out.println("\nЧисла второго игрока: ");
-        massiveOut(copyNumMass2);
-        Arrays.fill(copyNumMass1, 0, i, 0);
-        Arrays.fill(copyNumMass2, 0, i, 0);
-        System.out.println("\nОбнуленные массивы:");
-        massiveOut(copyNumMass1);
-        massiveOut(copyNumMass2);
-    }
-
-    public void startGame() {
-        System.out.println("\nУ каждого игрока 10 попыток!");
-        while (i != 10) {
-            System.out.print("\nПервый игрок вводит число для игры: ");
-            enterNum(player1);
-            if (compareNums(player1)) {
-                break;
-            }
-            if (i == 9) {
-                System.out.println("\nУ " + player1.getName() + " закончились попытки");
-            }
-            System.out.print("\nВторой игрок вводит число для игры: ");
-            enterNum(player2);
-            if (compareNums(player2)) {
-                break;
-            }
-            if (i == 9) {
-                System.out.println("\nУ " + player2.getName() + " закончились попытки");
-            }
-            i++;
+    public void setFillNumbers(int[] array, Player player) {
+        Arrays.fill(array, 0, attempt, 0);
+        for (int j = 0; j < array.length; j++) {
+            player.setEnteredNumber(array[j], j);
         }
-        playerInfo();
     }
 }
+
+

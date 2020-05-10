@@ -16,10 +16,6 @@ public class Player {
         return enteredNumbers;
     }
 
-    public int getEnteredNumber(int[] getEnteredNumbers, int i) {
-        return getEnteredNumbers[i];
-    }
-
     public void setEnteredNumber(int number, int i) {
         enteredNumbers[i] = number;
     }
