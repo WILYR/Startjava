@@ -39,7 +39,6 @@ public class Game {
         int[] copyNumArray1 = Arrays.copyOf(player1.getEnteredNumbers(), attempt);
         int[] copyNumArray2 = Arrays.copyOf(player2.getEnteredNumbers(), attempt);
         showEnteredNums(copyNumArray1, player1);
-        ;
         showEnteredNums(copyNumArray2, player2);
         setFillNumbers(copyNumArray1, player1);
         setFillNumbers(copyNumArray2, player2);
@@ -82,5 +81,3 @@ public class Game {
         }
     }
 }
-
-
