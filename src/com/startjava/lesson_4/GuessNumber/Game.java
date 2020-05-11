@@ -36,15 +36,11 @@ public class Game {
             }
             attempt++;
         }
-        int[] copyNumArray1 = Arrays.copyOf(player1.getEnteredNumbers(), attempt);
-        int[] copyNumArray2 = Arrays.copyOf(player2.getEnteredNumbers(), attempt);
-        showEnteredNums(copyNumArray1, player1);
-        showEnteredNums(copyNumArray2, player2);
-        setFillNumbers(copyNumArray1, player1);
-        setFillNumbers(copyNumArray2, player2);
-        System.out.println("\nОбнуленные массивы:");
         showEnteredNums(player1.getEnteredNumbers(), player1);
         showEnteredNums(player2.getEnteredNumbers(), player2);
+        System.out.println("\nОбнуленные массивы:");
+        setFillNumbers(player1.getEnteredNumbers(), player1);
+        setFillNumbers(player2.getEnteredNumbers(), player2);
     }
 
     public void enterNum(Player player) {
@@ -67,8 +63,9 @@ public class Game {
     }
 
     public void showEnteredNums(int[] nums, Player player) {
+        int[] copyNumArray = Arrays.copyOf(nums, attempt);
         System.out.println("\nЧисла игрока " + player.getName());
-        for (int num : nums) {
+        for (int num : copyNumArray) {
             System.out.print(num + " ");
         }
         System.out.println("");
@@ -76,8 +73,6 @@ public class Game {
 
     public void setFillNumbers(int[] array, Player player) {
         Arrays.fill(array, 0, attempt, 0);
-        for (int j = 0; j < array.length; j++) {
-            player.setEnteredNumber(array[j], j);
-        }
+        showEnteredNums(array, player);
     }
 }

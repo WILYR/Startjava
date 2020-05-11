@@ -19,4 +19,11 @@ public class Player {
     public void setEnteredNumber(int number, int i) {
         enteredNumbers[i] = number;
     }
+//    public int getLastNumber(int[] array) {
+//        return array[array.length - 1];
+//    }
+
+//    public int getCurrentNumber(int[] array, int i) {
+//        return array[i];
+//    }
 }
